@@ -1,0 +1,69 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Game.gd" type="Script" id=1]
+[ext_resource path="res://RedBalloon.tscn" type="PackedScene" id=2]
+[ext_resource path="res://BlueBalloon.tscn" type="PackedScene" id=3]
+[ext_resource path="res://GreenBalloon.tscn" type="PackedScene" id=4]
+[ext_resource path="res://YellowBalloon.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/background.png" type="Texture" id=6]
+[ext_resource path="res://assets/cloud.png" type="Texture" id=7]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 16, 288, 0, 0, 0, 0, 128, 288 )
+}
+
+[node name="Game" type="Node"]
+script = ExtResource( 1 )
+green_balloon = ExtResource( 4 )
+red_balloon = ExtResource( 2 )
+yellow_balloon = ExtResource( 5 )
+blue_balloon = ExtResource( 3 )
+
+[node name="Background" type="Sprite" parent="."]
+position = Vector2( 72, 128 )
+texture = ExtResource( 6 )
+
+[node name="Sprite" type="Sprite" parent="Background"]
+position = Vector2( -48, -104 )
+texture = ExtResource( 7 )
+
+[node name="Sprite2" type="Sprite" parent="Background"]
+position = Vector2( -40, -104 )
+texture = ExtResource( 7 )
+flip_v = true
+
+[node name="Sprite3" type="Sprite" parent="Background"]
+position = Vector2( 24, -104 )
+texture = ExtResource( 7 )
+
+[node name="Sprite4" type="Sprite" parent="Background"]
+position = Vector2( 48, -96 )
+texture = ExtResource( 7 )
+
+[node name="Sprite5" type="Sprite" parent="Background"]
+position = Vector2( 24, -96 )
+texture = ExtResource( 7 )
+
+[node name="Sprite6" type="Sprite" parent="Background"]
+position = Vector2( -16, -80 )
+texture = ExtResource( 7 )
+
+[node name="Sprite8" type="Sprite" parent="Background"]
+position = Vector2( -24, -80 )
+texture = ExtResource( 7 )
+flip_h = true
+
+[node name="Sprite7" type="Sprite" parent="Background"]
+position = Vector2( 16, -96 )
+texture = ExtResource( 7 )
+
+[node name="BalloonTimer" type="Timer" parent="."]
+
+[node name="BalloonPath" type="Path2D" parent="."]
+curve = SubResource( 1 )
+
+[node name="BalloonSpawnLocation" type="PathFollow2D" parent="BalloonPath"]
+position = Vector2( 16, 288 )
+
+[connection signal="timeout" from="BalloonTimer" to="." method="_on_BalloonTimer_timeout"]
